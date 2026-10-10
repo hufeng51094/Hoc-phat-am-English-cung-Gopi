@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🔊Luyện phát âm từ vựng cùng Gopi 🐷💖🐱</title>
+  <title>🐷💖LUYỆN PHÁT ÂM TỪ VỰNG CÙNG GOPI 💖🐱</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; background: #f0f4ff; margin: 20px; color: #333; }
     h2 { color: #4a6cf7; text-align:center; }
-    textarea { width: 60%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; display:block; margin:0 auto; }
+
+    /* Bảng 1: phần nhập tra cứu */
+    .search-box {
+      width: 70%;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
     button { background: #4a6cf7; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-top:10px; }
     button:hover { background: #3a56c7; }
 
-    /* Khối kết quả cố định góc phải với gradient pastel */
     #result {
-      position: fixed;
-      right: 20px;
-      top: 100px;
-      width: 280px;
+      margin-top: 15px;
       background: linear-gradient(135deg, #ffe6f0, #e6f7ff, #fff0e6);
-      padding: 14px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      font-size:18px;
-      z-index:100;
+      padding: 12px;
+      border-radius: 10px;
       border: 2px solid #ffb6c1;
+      font-size:18px;
       animation: fadeIn 0.8s ease-in-out;
     }
     .ipa { font-weight:600; color:#222; }
@@ -34,43 +38,56 @@
       to { opacity:1; transform: translateY(0); }
     }
 
-    table { border-collapse: collapse; margin: 20px auto; width: 70%; background: white; border-radius: 8px; overflow: hidden; }
+    /* Bố cục 2 bảng song song */
+    .tables-container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+    table { border-collapse: collapse; width: 45%; background: white; border-radius: 8px; overflow: hidden; }
     th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
     th { background: #4a6cf7; color: white; }
   </style>
 </head>
 <body>
-  <h2>🐱💖 Luyện phát âm từ vựng cùng Gopi 🐷💖</h2>
-  <textarea id="textInput" rows="3" placeholder="Nhập từ hoặc câu tiếng Anh..."></textarea>
-  <div style="text-align:center;">
+  <h2>🐷💖LUYỆN PHÁT ÂM TỪ VỰNG CÙNG GOPI 💖🐱</h2>
+
+  <!-- Bảng 1: phần nhập tra cứu -->
+  <div class="search-box">
+    <textarea id="textInput" rows="3" placeholder="Nhập từ hoặc câu tiếng Anh..."></textarea>
     <button onclick="processInput()">Phát âm + IPA + Dịch</button>
+    <div id="result"></div>
   </div>
-  <div id="result"></div>
 
-  <h3 style="text-align:center;">IPA Vowels (Nguyên âm đơn)</h3>
-  <table>
-    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-    <tr><td>/iː/</td><td>seat</td><td><button onclick="speakWord('seat')">🐱</button></td></tr>
-    <tr><td>/ɪ/</td><td>sit</td><td><button onclick="speakWord('sit')">🐱</button></td></tr>
-    <tr><td>/æ/</td><td>cat</td><td><button onclick="speakWord('cat')">🐱</button></td></tr>
-    <tr><td>/ʌ/</td><td>cup</td><td><button onclick="speakWord('cup')">🐱</button></td></tr>
-    <tr><td>/ɑː/</td><td>father</td><td><button onclick="speakWord('father')">🐱</button></td></tr>
-    <tr><td>/ɔː/</td><td>law</td><td><button onclick="speakWord('law')">🐱</button></td></tr>
-    <tr><td>/uː/</td><td>food</td><td><button onclick="speakWord('food')">🐱</button></td></tr>
-    <tr><td>/ʊ/</td><td>book</td><td><button onclick="speakWord('book')">🐱</button></td></tr>
-    <tr><td>/e/</td><td>bed</td><td><button onclick="speakWord('bed')">🐱</button></td></tr>
-    <tr><td>/ə/</td><td>about</td><td><button onclick="speakWord('about')">🐱</button></td></tr>
-  </table>
+  <!-- Bảng 2 và 3: nguyên âm đơn và đôi -->
+  <div class="tables-container">
+    <!-- Nguyên âm đơn -->
+    <table>
+      <tr><th colspan="3">IPA Vowels (Nguyên âm đơn)</th></tr>
+      <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
+      <tr><td>/iː/</td><td>seat</td><td><button onclick="speakWord('seat')">🔊</button></td></tr>
+      <tr><td>/ɪ/</td><td>sit</td><td><button onclick="speakWord('sit')">🔊</button></td></tr>
+      <tr><td>/æ/</td><td>cat</td><td><button onclick="speakWord('cat')">🔊</button></td></tr>
+      <tr><td>/ʌ/</td><td>cup</td><td><button onclick="speakWord('cup')">🔊</button></td></tr>
+      <tr><td>/ɑː/</td><td>father</td><td><button onclick="speakWord('father')">🔊</button></td></tr>
+      <tr><td>/ɔː/</td><td>law</td><td><button onclick="speakWord('law')">🔊</button></td></tr>
+      <tr><td>/uː/</td><td>food</td><td><button onclick="speakWord('food')">🔊</button></td></tr>
+      <tr><td>/ʊ/</td><td>book</td><td><button onclick="speakWord('book')">🔊</button></td></tr>
+      <tr><td>/e/</td><td>bed</td><td><button onclick="speakWord('bed')">🔊</button></td></tr>
+      <tr><td>/ə/</td><td>about</td><td><button onclick="speakWord('about')">🔊</button></td></tr>
+    </table>
 
-  <h3 style="text-align:center;">Diphthongs (Nguyên âm đôi)</h3>
-  <table>
-    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-    <tr><td>/aɪ/</td><td>time</td><td><button onclick="speakWord('time')">🐱</button></td></tr>
-    <tr><td>/eɪ/</td><td>day</td><td><button onclick="speakWord('day')">🐱</button></td></tr>
-    <tr><td>/oʊ/</td><td>go</td><td><button onclick="speakWord('go')">🐱</button></td></tr>
-    <tr><td>/aʊ/</td><td>house</td><td><button onclick="speakWord('house')">🐱</button></td></tr>
-    <tr><td>/ɔɪ/</td><td>boy</td><td><button onclick="speakWord('boy')">🐱</button></td></tr>
-  </table>
+    <!-- Nguyên âm đôi -->
+    <table>
+      <tr><th colspan="3">Diphthongs (Nguyên âm đôi)</th></tr>
+      <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
+      <tr><td>/aɪ/</td><td>time</td><td><button onclick="speakWord('time')">🔊</button></td></tr>
+      <tr><td>/eɪ/</td><td>day</td><td><button onclick="speakWord('day')">🔊</button></td></tr>
+      <tr><td>/oʊ/</td><td>go</td><td><button onclick="speakWord('go')">🔊</button></td></tr>
+      <tr><td>/aʊ/</td><td>house</td><td><button onclick="speakWord('house')">🔊</button></td></tr>
+      <tr><td>/ɔɪ/</td><td>boy</td><td><button onclick="speakWord('boy')">🔊</button></td></tr>
+    </table>
+  </div>
 
   <script>
     async function processInput() {
@@ -107,7 +124,7 @@
         translationText = "(không dịch được)";
       }
 
-      // Hiển thị kết quả cố định
+      // Hiển thị kết quả
       document.getElementById('result').innerHTML = `
         <div class="ipa">IPA: ${ipaText || "(không có IPA)"}</div>
         <div class="translation">📖 Dịch: ${translationText}</div>
