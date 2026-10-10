@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Luyện phát âm từ vựng cùng Gopi 🐷💖🐱</title>
+  <title>🔊Luyện phát âm từ vựng cùng Gopi 🐷💖🐱</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; background: #f0f4ff; margin: 20px; color: #333; }
@@ -10,20 +10,30 @@
     textarea { width: 60%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; display:block; margin:0 auto; }
     button { background: #4a6cf7; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-top:10px; }
     button:hover { background: #3a56c7; }
+
+    /* Khối kết quả cố định góc phải với gradient pastel */
     #result {
       position: fixed;
       right: 20px;
       top: 100px;
-      width: 300px;
-      background: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      width: 280px;
+      background: linear-gradient(135deg, #ffe6f0, #e6f7ff, #fff0e6);
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
       font-size:18px;
       z-index:100;
+      border: 2px solid #ffb6c1;
+      animation: fadeIn 0.8s ease-in-out;
     }
     .ipa { font-weight:600; color:#222; }
     .translation { color:#4a6cf7; font-style:italic; }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform: translateY(-10px); }
+      to { opacity:1; transform: translateY(0); }
+    }
+
     table { border-collapse: collapse; margin: 20px auto; width: 70%; background: white; border-radius: 8px; overflow: hidden; }
     th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
     th { background: #4a6cf7; color: white; }
