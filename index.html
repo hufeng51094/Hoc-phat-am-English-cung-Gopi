@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>English Pronunciation Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 60%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h2>🔊 English Pronunciation (American)</h2>
+  <textarea id="textInput" rows="3" cols="50" placeholder="Paste your word or sentence here..."></textarea>
+  <button onclick="speakText()">Speak Sentence</button>
+
+  <h3>IPA Vowels</h3>
+  <table>
+    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
+    <tr><td>/iː/</td><td>seat</td><td><button onclick="speak('seat')">🔊</button></td></tr>
+    <tr><td>/ɪ/</td><td>sit</td><td><button onclick="speak('sit')">🔊</button></td></tr>
+    <tr><td>/æ/</td><td>cat</td><td><button onclick="speak('cat')">🔊</button></td></tr>
+    <tr><td>/ʌ/</td><td>cup</td><td><button onclick="speak('cup')">🔊</button></td></tr>
+    <tr><td>/ɑː/</td><td>father</td><td><button onclick="speak('father')">🔊</button></td></tr>
+    <tr><td>/ɔː/</td><td>law</td><td><button onclick="speak('law')">🔊</button></td></tr>
+    <tr><td>/uː/</td><td>food</td><td><button onclick="speak('food')">🔊</button></td></tr>
+    <tr><td>/ʊ/</td><td>book</td><td><button onclick="speak('book')">🔊</button></td></tr>
+    <tr><td>/e/</td><td>bed</td><td><button onclick="speak('bed')">🔊</button></td></tr>
+    <tr><td>/ə/</td><td>about</td><td><button onclick="speak('about')">🔊</button></td></tr>
+  </table>
+
+  <h3>Diphthongs</h3>
+  <table>
+    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
+    <tr><td>/aɪ/</td><td>time</td><td><button onclick="speak('time')">🔊</button></td></tr>
+    <tr><td>/eɪ/</td><td>day</td><td><button onclick="speak('day')">🔊</button></td></tr>
+    <tr><td>/oʊ/</td><td>go</td><td><button onclick="speak('go')">🔊</button></td></tr>
+    <tr><td>/aʊ/</td><td>house</td><td><button onclick="speak('house')">🔊</button></td></tr>
+    <tr><td>/ɔɪ/</td><td>boy</td><td><button onclick="speak('boy')">🔊</button></td></tr>
+  </table>
+
+  <script>
+    function speakText() {
+      const text = document.getElementById('textInput').value;
+      speak(text);
+    }
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US'; // giọng Mỹ
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
