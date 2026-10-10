@@ -3,53 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <title>English Pronunciation Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    table { border-collapse: collapse; width: 60%; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-    button { padding: 5px 10px; }
+    body { font-family: 'Poppins', sans-serif; background: #f0f4ff; margin: 20px; color: #333; }
+    h2 { color: #4a6cf7; }
+    textarea { width: 60%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
+    button { background: #4a6cf7; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #3a56c7; }
+    .word-block { background: #fff; border-radius: 6px; padding: 8px; margin: 5px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .ipa { font-weight: 600; color: #222; }
+    .meaning { color: #555; font-style: italic; }
+    .highlight { background: #ffe066; }
   </style>
 </head>
 <body>
   <h2>🔊 English Pronunciation (American)</h2>
-  <textarea id="textInput" rows="3" cols="50" placeholder="Paste your word or sentence here..."></textarea>
-  <button onclick="speakText()">Speak Sentence</button>
-
-  <h3>IPA Vowels</h3>
-  <table>
-    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-    <tr><td>/iː/</td><td>seat</td><td><button onclick="speak('seat')">🔊</button></td></tr>
-    <tr><td>/ɪ/</td><td>sit</td><td><button onclick="speak('sit')">🔊</button></td></tr>
-    <tr><td>/æ/</td><td>cat</td><td><button onclick="speak('cat')">🔊</button></td></tr>
-    <tr><td>/ʌ/</td><td>cup</td><td><button onclick="speak('cup')">🔊</button></td></tr>
-    <tr><td>/ɑː/</td><td>father</td><td><button onclick="speak('father')">🔊</button></td></tr>
-    <tr><td>/ɔː/</td><td>law</td><td><button onclick="speak('law')">🔊</button></td></tr>
-    <tr><td>/uː/</td><td>food</td><td><button onclick="speak('food')">🔊</button></td></tr>
-    <tr><td>/ʊ/</td><td>book</td><td><button onclick="speak('book')">🔊</button></td></tr>
-    <tr><td>/e/</td><td>bed</td><td><button onclick="speak('bed')">🔊</button></td></tr>
-    <tr><td>/ə/</td><td>about</td><td><button onclick="speak('about')">🔊</button></td></tr>
-  </table>
-
-  <h3>Diphthongs</h3>
-  <table>
-    <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-    <tr><td>/aɪ/</td><td>time</td><td><button onclick="speak('time')">🔊</button></td></tr>
-    <tr><td>/eɪ/</td><td>day</td><td><button onclick="speak('day')">🔊</button></td></tr>
-    <tr><td>/oʊ/</td><td>go</td><td><button onclick="speak('go')">🔊</button></td></tr>
-    <tr><td>/aʊ/</td><td>house</td><td><button onclick="speak('house')">🔊</button></td></tr>
-    <tr><td>/ɔɪ/</td><td>boy</td><td><button onclick="speak('boy')">🔊</button></td></tr>
-  </table>
+  <textarea id="textInput" rows="3" placeholder="Paste your sentence here..."></textarea>
+  <br><br>
+  <button onclick="processSentence()">Speak & Show IPA + Meaning</button>
+  <div id="ipaOutput"></div>
+  <div id="sentenceTranslation" style="margin-top:20px; font-weight:600; color:#4a6cf7;"></div>
 
   <script>
-    function speakText() {
-      const text = document.getElementById('textInput').value;
-      speak(text);
+    async function processSentence() {
+      const sentence = document.getElementById('textInput').value.trim();
+      if (!sentence) return;
+
+      // Phát âm cả câu
+      const utterance = new SpeechSynthesisUtterance(sentence);
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance);
+
+      // Tách câu thành từng từ
+      const words = sentence.split(/\s+/);
+      const ipaOutput = document.getElementById('ipaOutput');
+      ipaOutput.innerHTML = "";
+
+      for (let word of words) {
+        try {
+          const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
+          const data = await response.json();
+          let ipa = "";
+          let meaning = "";
+
+          if (data[0]) {
+            if (data[0].phonetics && data[0].phonetics[0] && data[0].phonetics[0].text) {
+              ipa = data[0].phonetics[0].text;
+            }
+            if (data[0].meanings && data[0].meanings[0].definitions[0].definition) {
+              meaning = data[0].meanings[0].definitions[0].definition;
+            }
+          }
+
+          // Hiển thị từng từ + IPA + nghĩa + nút nghe
+          const block = document.createElement("div");
+          block.className = "word-block";
+          block.id = "word-" + word;
+          block.innerHTML = `<strong>${word}</strong> — IPA: <span class="ipa">${ipa || "(no IPA)"}</span><br>
+                             <span class="meaning">Nghĩa: ${meaning || "(không có nghĩa)"}</span><br>
+                             <button onclick="speakWord('${word}')">🔊 Nghe</button>`;
+          ipaOutput.appendChild(block);
+
+        } catch (error) {
+          const block = document.createElement("div");
+          block.className = "word-block";
+          block.innerHTML = `<strong>${word}</strong> — (error fetching IPA/meaning)`;
+          ipaOutput.appendChild(block);
+        }
+      }
+
+      // Dịch cả câu sang tiếng Việt
+      try {
+        const transResponse = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(sentence)}&langpair=en|vi`);
+        const transData = await transResponse.json();
+        if (transData.responseData.translatedText) {
+          document.getElementById('sentenceTranslation').innerText = "📖 Dịch cả câu: " + transData.responseData.translatedText;
+        }
+      } catch (err) {
+        document.getElementById('sentenceTranslation').innerText = "Không dịch được câu.";
+      }
     }
-    function speak(text) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US'; // giọng Mỹ
-      utterance.rate = 1;
-      utterance.pitch = 1;
+
+    function speakWord(word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+
+      // Highlight từ đang phát âm
+      const block = document.getElementById("word-" + word);
+      if (block) {
+        block.classList.add("highlight");
+        utterance.onend = () => block.classList.remove("highlight");
+      }
+
       speechSynthesis.speak(utterance);
     }
   </script>
