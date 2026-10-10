@@ -32,9 +32,10 @@
       display: flex;
       justify-content: space-around;
       margin-top: 30px;
+      flex-wrap: wrap; /* để bảng xuống dòng nếu màn hình nhỏ */
     }
-    table { border-collapse: collapse; width: 45%; background: white; border-radius: 8px; overflow: hidden; font-size: 14px; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    table { border-collapse: collapse; width: 45%; background: white; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+    th, td { border: 1px solid #ddd; padding: 5px; text-align: center; line-height: 1.1; }
     th { background: #4a6cf7; color: white; }
     td button { background: none; border: none; font-size: 16px; cursor: pointer; }
     td button:hover { color: #4a6cf7; }
