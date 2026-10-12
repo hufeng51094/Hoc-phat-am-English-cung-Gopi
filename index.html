@@ -20,22 +20,19 @@
     button { background: #4a6cf7; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; margin-top:10px; }
     button:hover { background: #3a56c7; }
 
-    #result {
-      margin-top: 12px;
-      font-size:18px;
-    }
+    #result { margin-top: 12px; font-size:18px; }
     .ipa { font-weight:600; color:#222; }
     .translation { color:#4a6cf7; font-style:italic; }
 
-    /* Bố cục 2 bảng song song */
+    /* Bố cục các bảng */
     .tables-container {
       display: flex;
       justify-content: space-around;
       margin-top: 30px;
-      flex-wrap: wrap; /* để bảng xuống dòng nếu màn hình nhỏ */
+      flex-wrap: wrap;
     }
-    table { border-collapse: collapse; width: 45%; background: white; border-radius: 8px; overflow-x: auto; font-size: 13px; }
-    th, td { border: 1px solid #ddd; padding: 5px; text-align: center; line-height: 1.1; }
+    table { border-collapse: collapse; width: 45%; background: white; border-radius: 8px; overflow-x: auto; font-size: 13px; margin-bottom: 20px; }
+    th, td { border: 1px solid #ddd; padding: 6px; text-align: center; line-height: 1.2; }
     th { background: #4a6cf7; color: white; }
     td button { background: none; border: none; font-size: 16px; cursor: pointer; }
     td button:hover { color: #4a6cf7; }
@@ -47,37 +44,40 @@
   <!-- Khung nhập + kết quả -->
   <div class="search-box">
     <textarea id="textInput" rows="3" placeholder="Nhập từ hoặc câu tiếng Anh..."></textarea>
-    <button onclick="processInput()">Phát âm + IPA + Dịch</button>
+    <button onclick="processInput()">Voice</button>
     <div id="result"></div>
   </div>
 
-  <!-- Bảng nguyên âm đơn và nguyên âm đôi song song -->
+  <!-- Bảng nguyên âm và phụ âm -->
   <div class="tables-container">
-    <!-- Nguyên âm đơn -->
+    <!-- Nguyên âm -->
     <table>
-      <tr><th colspan="3">IPA Vowels (Nguyên âm đơn)</th></tr>
-      <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-      <tr><td>/iː/</td><td>seat</td><td><button onclick="speakWord('seat')">🔊</button></td></tr>
-      <tr><td>/ɪ/</td><td>sit</td><td><button onclick="speakWord('sit')">🔊</button></td></tr>
-      <tr><td>/æ/</td><td>cat</td><td><button onclick="speakWord('cat')">🔊</button></td></tr>
-      <tr><td>/ʌ/</td><td>cup</td><td><button onclick="speakWord('cup')">🔊</button></td></tr>
-      <tr><td>/ɑː/</td><td>father</td><td><button onclick="speakWord('father')">🔊</button></td></tr>
-      <tr><td>/ɔː/</td><td>law</td><td><button onclick="speakWord('law')">🔊</button></td></tr>
-      <tr><td>/uː/</td><td>food</td><td><button onclick="speakWord('food')">🔊</button></td></tr>
-      <tr><td>/ʊ/</td><td>book</td><td><button onclick="speakWord('book')">🔊</button></td></tr>
-      <tr><td>/e/</td><td>bed</td><td><button onclick="speakWord('bed')">🔊</button></td></tr>
-      <tr><td>/ə/</td><td>about</td><td><button onclick="speakWord('about')">🔊</button></td></tr>
+      <tr><th colspan="5">🔤 Nguyên âm (Vowels)</th></tr>
+      <tr><th>Âm</th><th>Ví dụ từ</th><th>Phiên âm</th><th>Nghĩa</th><th>Nghe</th></tr>
+      <tr><td>/æ/</td><td>cat</td><td>/kæt/</td><td>con mèo</td><td><button onclick="speakWord('cat')">🔊</button></td></tr>
+      <tr><td>/e/</td><td>pen</td><td>/pɛn/</td><td>cây bút</td><td><button onclick="speakWord('pen')">🔊</button></td></tr>
+      <tr><td>/iː/</td><td>see</td><td>/siː/</td><td>nhìn thấy</td><td><button onclick="speakWord('see')">🔊</button></td></tr>
+      <tr><td>/ɪ/</td><td>sit</td><td>/sɪt/</td><td>ngồi</td><td><button onclick="speakWord('sit')">🔊</button></td></tr>
+      <tr><td>/ɑː/</td><td>car</td><td>/kɑːr/</td><td>xe hơi</td><td><button onclick="speakWord('car')">🔊</button></td></tr>
+      <tr><td>/ʌ/</td><td>cup</td><td>/kʌp/</td><td>cái cốc</td><td><button onclick="speakWord('cup')">🔊</button></td></tr>
+      <tr><td>/oʊ/</td><td>go</td><td>/ɡoʊ/</td><td>đi</td><td><button onclick="speakWord('go')">🔊</button></td></tr>
+      <tr><td>/uː/</td><td>blue</td><td>/bluː/</td><td>màu xanh dương</td><td><button onclick="speakWord('blue')">🔊</button></td></tr>
     </table>
 
-    <!-- Nguyên âm đôi -->
+    <!-- Phụ âm -->
     <table>
-      <tr><th colspan="3">Diphthongs (Nguyên âm đôi)</th></tr>
-      <tr><th>IPA</th><th>Example</th><th>Listen</th></tr>
-      <tr><td>/aɪ/</td><td>time</td><td><button onclick="speakWord('time')">🔊</button></td></tr>
-      <tr><td>/eɪ/</td><td>day</td><td><button onclick="speakWord('day')">🔊</button></td></tr>
-      <tr><td>/oʊ/</td><td>go</td><td><button onclick="speakWord('go')">🔊</button></td></tr>
-      <tr><td>/aʊ/</td><td>house</td><td><button onclick="speakWord('house')">🔊</button></td></tr>
-      <tr><td>/ɔɪ/</td><td>boy</td><td><button onclick="speakWord('boy')">🔊</button></td></tr>
+      <tr><th colspan="5">🗣️ Phụ âm (Consonants)</th></tr>
+      <tr><th>Âm</th><th>Ví dụ từ</th><th>Phiên âm</th><th>Nghĩa</th><th>Nghe</th></tr>
+      <tr><td>/r/</td><td>red</td><td>/rɛd/</td><td>màu đỏ</td><td><button onclick="speakWord('red')">🔊</button></td></tr>
+      <tr><td>/t/</td><td>table</td><td>/ˈteɪbəl/</td><td>cái bàn</td><td><button onclick="speakWord('table')">🔊</button></td></tr>
+      <tr><td>/θ/</td><td>think</td><td>/θɪŋk/</td><td>nghĩ</td><td><button onclick="speakWord('think')">🔊</button></td></tr>
+      <tr><td>/ð/</td><td>this</td><td>/ðɪs/</td><td>cái này</td><td><button onclick="speakWord('this')">🔊</button></td></tr>
+      <tr><td>/ʃ/</td><td>she</td><td>/ʃiː/</td><td>cô ấy</td><td><button onclick="speakWord('she')">🔊</button></td></tr>
+      <tr><td>/ʒ/</td><td>measure</td><td>/ˈmɛʒər/</td><td>đo lường</td><td><button onclick="speakWord('measure')">🔊</button></td></tr>
+      <tr><td>/b/</td><td>book</td><td>/bʊk/</td><td>quyển sách</td><td><button onclick="speakWord('book')">🔊</button></td></tr>
+      <tr><td>/d/</td><td>dog</td><td>/dɑːɡ/</td><td>con chó</td><td><button onclick="speakWord('dog')">🔊</button></td></tr>
+      <tr><td>/g/</td><td>girl</td><td>/ɡɜːrl/</td><td>cô gái</td><td><button onclick="speakWord('girl')">🔊</button></td></tr>
+      <tr><td>/h/</td><td>hat</td><td>/hæt/</td><td>cái mũ</td><td><button onclick="speakWord('hat')">🔊</button></td></tr>
     </table>
   </div>
 
@@ -96,38 +96,4 @@
 
       // Lấy IPA (chỉ cho từ đơn)
       try {
-        const ipaResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${text.toLowerCase()}`);
-        const ipaData = await ipaResponse.json();
-        if (ipaData[0] && ipaData[0].phonetics && ipaData[0].phonetics[0].text) {
-          ipaText = ipaData[0].phonetics[0].text;
-        }
-      } catch (err) {
-        ipaText = "(không tìm thấy IPA)";
-      }
-
-      // Dịch nghĩa tiếng Việt cho cả câu
-      try {
-        const transResponse = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`);
-        const transData = await transResponse.json();
-        if (transData.responseData.translatedText) {
-          translationText = transData.responseData.translatedText;
-        }
-      } catch (err) {
-        translationText = "(không dịch được)";
-      }
-
-      // Hiển thị kết quả gọn gàng
-      document.getElementById('result').innerHTML = `
-        <div class="ipa">IPA: ${ipaText || "(không có IPA)"}</div>
-        <div class="translation">📖 Dịch: ${translationText}</div>
-      `;
-    }
-
-    function speakWord(word) {
-      const utterance = new SpeechSynthesisUtterance(word);
-      utterance.lang = 'en-US';
-      speechSynthesis.speak(utterance);
-    }
-  </script>
-</body>
-</html>
+        const ipaResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${text.toLower
