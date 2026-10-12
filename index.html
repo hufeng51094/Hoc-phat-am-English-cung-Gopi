@@ -73,6 +73,40 @@
       let ipaText = "";
       let translationText = "";
 
-      // Lấy IPA
+      // Lấy IPA (chỉ cho từ đơn)
       try {
-        const ipaResponse = await fetch(`https://api.dictionaryapi
+        const ipaResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${text.toLowerCase()}`);
+        const ipaData = await ipaResponse.json();
+        if (ipaData[0] && ipaData[0].phonetics && ipaData[0].phonetics[0].text) {
+          ipaText = ipaData[0].phonetics[0].text;
+        }
+      } catch (err) {
+        ipaText = "(không tìm thấy IPA)";
+      }
+
+      // Dịch nghĩa tiếng Việt cho cả câu
+      try {
+        const transResponse = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|vi`);
+        const transData = await transResponse.json();
+        if (transData.responseData.translatedText) {
+          translationText = transData.responseData.translatedText;
+        }
+      } catch (err) {
+        translationText = "(không dịch được)";
+      }
+
+      // Hiển thị kết quả gọn gàng
+      document.getElementById('result').innerHTML = `
+        <div class="ipa">IPA: ${ipaText || "(không có IPA)"}</div>
+        <div class="translation">📖 Dịch: ${translationText}</div>
+      `;
+    }
+
+    function speakWord(word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
