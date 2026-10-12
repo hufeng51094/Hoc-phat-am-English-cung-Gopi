@@ -80,7 +80,8 @@
         const ipaData = await ipaResponse.json();
         if (ipaData[0] && ipaData[0].phonetics) {
           const phonetic = ipaData[0].phonetics.find(p => p.text);
-          if (phonetic) ipaText = phonetic.text;
+          if (phonetic) {
+            ipaText = phonetic.text;
+          }
         }
-      } catch (err) {
-        ipaText = "(không tìm thấy
+      } catch (err)
